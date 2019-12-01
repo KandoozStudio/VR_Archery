@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e030a32f864d0214ab3fedba0b13ec2c, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  usePosition: 1
+  useRotation: 1
+  rightHandObjPosition: {x: 0.005, y: 0.023, z: -0.008}
+  rightHandObjRotation: {x: 4.534, y: -0.388, z: -5.594}
+  leftHandObjPosition: {x: 0.017, y: 0.0399, z: -0.019}
+  leftHandObjRotation: {x: 8.921, y: -2.029, z: 1.065}
+  useAnimationProfile: 1
+  rightHandProfile:
+    grip: 1
+    index: 1
+    thumb: 1
+    gripPercentage: 0.618
+    indexPercentage: 0.614
+    thumbState: 0
+    thumbPercentage: 1
+    staticPose: 0
+    pose: 0
+  leftHandProfile:
+    grip: 1
+    index: 1
+    thumb: 1
+    gripPercentage: 0.618
+    indexPercentage: 0.614
+    thumbState: 0
+    thumbPercentage: 1
+    staticPose: 0
+    pose: 0

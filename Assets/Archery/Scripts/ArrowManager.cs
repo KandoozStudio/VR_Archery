@@ -62,8 +62,8 @@ public class ArrowManager : MonoBehaviour
     private void ShowTrajecory()
     {
         lr.positionCount = 20;
-        Vector3 p = this.transform.position; ;
-        Vector3 V = this.transform.forward* 25f *withdrawDist;
+        Vector3 p = currentArrow.transform.position; ;
+        Vector3 V = currentArrow.transform.forward* 25f *withdrawDist;
         for (int i = 0; i < 20; i++)
         {
             p = p + V * .051f;

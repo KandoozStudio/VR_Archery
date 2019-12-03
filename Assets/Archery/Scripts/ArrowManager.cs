@@ -26,6 +26,7 @@ public class ArrowManager : MonoBehaviour
     private LineRenderer lr;
     private Vector3[] points;
     private Vector3 velocity, startingPosition;
+    public float speed=1;
     void Awake()
     {
         if (Instance == null)
@@ -60,14 +61,14 @@ public class ArrowManager : MonoBehaviour
     }
     private void ShowTrajecory()
     {
-        lr.positionCount = 7;
-        Vector3 p = currentArrow.transform.position+ currentArrow.transform.forward;
-        Vector3 V = currentArrow.transform.forward * 25f * withdrawDist;
-        for (int i = 0; i < 7; i++)
+        lr.positionCount = 20;
+        Vector3 p = this.transform.position; ;
+        Vector3 V = this.transform.forward* 25f *withdrawDist;
+        for (int i = 0; i < 20; i++)
         {
-            p = p + V * .2f;
-            points[i] = currentArrow.transform.TransformPoint(p);
-            V += Physics.gravity * .2f;
+            p = p + V * .051f;
+            points[i] = (p);
+            V += Physics.gravity * .051f;
         }
         lr.SetPositions(points);
     }

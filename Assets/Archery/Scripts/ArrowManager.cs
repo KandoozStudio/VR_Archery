@@ -25,6 +25,7 @@ public class ArrowManager : MonoBehaviour
     private AudioSource _as;
     private LineRenderer lr;
     private Vector3[] points;
+    private Vector3 velocity, startingPosition;
     void Awake()
     {
         if (Instance == null)
@@ -53,15 +54,16 @@ public class ArrowManager : MonoBehaviour
         }
         if (isAttached)
         {
+            //velocity=
             ShowTrajecory();
         }
     }
     private void ShowTrajecory()
     {
-        lr.positionCount = 20;
+        lr.positionCount = 7;
         Vector3 p = currentArrow.transform.position+ currentArrow.transform.forward;
         Vector3 V = currentArrow.transform.forward * 25f * withdrawDist;
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 7; i++)
         {
             p = p + V * .2f;
             points[i] = currentArrow.transform.TransformPoint(p);

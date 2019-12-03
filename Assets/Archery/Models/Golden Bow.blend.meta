@@ -1,26 +1,29 @@
 fileFormatVersion: 2
 guid: 81a77dca9e95cc747a79bf065e4925da
 ModelImporter:
-  serializedVersion: 26
-  internalIDToNameTable: []
+  serializedVersion: 28
+  internalIDToNameTable:
+  - first:
+      74: -623603649343465320
+    second: Scene
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Metal
-    second: {fileID: 2100000, guid: d172e2d1e0890344aadc84eaaa633512, type: 2}
+    second: {fileID: 2100000, guid: 83c16fafd28ec6f4f9e04d2db097c410, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: String
-    second: {fileID: 2100000, guid: c787e6baed9d7cb44863d87012627f4c, type: 2}
+    second: {fileID: 2100000, guid: b65fd3aa4dd63c84594f4262cd320db7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wood
-    second: {fileID: 2100000, guid: c0c811d9bc901264cbe6f8114c086a08, type: 2}
+    second: {fileID: 2100000, guid: e36d541b9b9935841be8c77a634bfdc9, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -84,7 +87,6 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -102,8 +104,10 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

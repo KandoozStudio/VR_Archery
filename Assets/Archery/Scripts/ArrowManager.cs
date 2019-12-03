@@ -67,6 +67,7 @@ public class ArrowManager : MonoBehaviour
             points[i] =currentArrow.transform.localToWorldMatrix* p;
             V += Physics.gravity * .2f;
         }
+        lr.SetPositions(points);
     }
     private void PullString()
     {

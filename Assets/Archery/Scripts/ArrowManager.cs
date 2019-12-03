@@ -59,7 +59,7 @@ public class ArrowManager : MonoBehaviour
     private void ShowTrajecory()
     {
         lr.positionCount = 20;
-        Vector3 p = currentArrow.transform.position;
+        Vector3 p = currentArrow.transform.GetChild(0).position;
         Vector3 V = currentArrow.transform.forward * 25f * withdrawDist;
         for (int i = 0; i < 20; i++)
         {

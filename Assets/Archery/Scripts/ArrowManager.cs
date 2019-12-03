@@ -8,36 +8,29 @@ public enum grabbingHand
 }
 public class ArrowManager : MonoBehaviour
 {
-
     public static ArrowManager Instance;
-
     public grabbingHand currentgrabbingHand;
     public GameObject trackedLeftHand;
     public GameObject trackedRightHand;
-    private GameObject currentArrow;
-
     public GameObject stringAttachPoint;
     public GameObject arrowStartPoint;
     public GameObject stringStartPoint;
-
     public GameObject arrowPrefab;
-
     public bool bowGrabbed = false;
-    private bool isAttached = false;
-    
-    private float withdrawDist;
-
-    private AudioSource _as;
     public AudioClip arrowSound;
 
+    private bool isAttached = false;
+    private GameObject currentArrow;
+    private float withdrawDist;
+    private AudioSource _as;
+    private LineRenderer lr;
+    private Vector3[] points;
     void Awake()
     {
         if (Instance == null)
             Instance = this;
-
         _as = this.GetComponent<AudioSource>();
         _as.clip = arrowSound;
-
     }
 
     void OnDestroy()
@@ -45,14 +38,12 @@ public class ArrowManager : MonoBehaviour
         if (Instance == this)
             Instance = null;
     }
-
-    // Use this for initialization
     void Start()
     {
+        points = new Vector3[20];
+        lr = GetComponent<LineRenderer>();
 
     }
-
-
     void Update()
     {
         if (bowGrabbed)
@@ -60,37 +51,32 @@ public class ArrowManager : MonoBehaviour
             AttachArrow();
             PullString();
         }
-        //Debug.Log(Input.GetKey(KeyCode.JoystickButton15));
-        //Debug.Log(Input.GetKey(KeyCode.JoystickButton15));
-
         if (isAttached)
         {
-           
+            ShowTrajecory();
         }
     }
-
+    private void ShowTrajecory()
+    {
+        lr.positionCount = 20;
+        for (int i = 0; i < 20; i++)
+        {
+            //Vector3 v=
+        }
+    }
     private void PullString()
     {
-
-
         if (isAttached)
         {
-           
             switch (currentgrabbingHand)
             {
-
                 case grabbingHand.LeftHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedRightHand.transform.position).magnitude;
                     stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
-
-
                     if (Input.GetKeyUp(KeyCode.JoystickButton15))
                     {
                         Fire();
-
                     }
-
-
                     break;
                 case grabbingHand.RightHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedLeftHand.transform.position).magnitude;
@@ -100,19 +86,12 @@ public class ArrowManager : MonoBehaviour
                         Fire();
 
                     }
-
                     break;
                 default:
                     break;
             }
-
-           
-            //var device = SteamVR_Controller.Input((int)trackedObj.index);
-            //if (device.GetTouchUp (SteamVR_Controller.ButtonMask.Trigger)) {
             if (Input.GetKeyDown(KeyCode.F))
             {
-
-
                 Fire();
             }
         }
@@ -123,16 +102,12 @@ public class ArrowManager : MonoBehaviour
         playArrowSound();
         currentArrow.transform.parent = null;
         currentArrow.GetComponent<Arrow>().Fired();
-
         Rigidbody r = currentArrow.GetComponent<Rigidbody>();
         r.velocity = currentArrow.transform.forward * 25f * withdrawDist;
         r.isKinematic = false;
         r.useGravity = true;
-
         currentArrow.GetComponent<Collider>().isTrigger = false;
-
         stringAttachPoint.transform.position = stringStartPoint.transform.position;
-
         currentArrow = null;
         isAttached = false;
     }
@@ -158,8 +133,6 @@ public class ArrowManager : MonoBehaviour
                 default:
                     break;
             }
-
-            
         }
     }
 
@@ -168,14 +141,10 @@ public class ArrowManager : MonoBehaviour
         currentArrow.transform.parent = stringAttachPoint.transform;
         currentArrow.transform.position = arrowStartPoint.transform.position;
         currentArrow.transform.rotation = arrowStartPoint.transform.rotation;
-
         isAttached = true;
     }
 
-
-
-    public void
-        BowGrabbedStatus(bool grabbed)
+    public void BowGrabbedStatus(bool grabbed)
     {
         bowGrabbed = grabbed;
     }

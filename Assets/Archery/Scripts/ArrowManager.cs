@@ -59,12 +59,12 @@ public class ArrowManager : MonoBehaviour
     private void ShowTrajecory()
     {
         lr.positionCount = 20;
-        Vector3 p = currentArrow.transform.GetChild(0).position;
+        Vector3 p = currentArrow.transform.position+ currentArrow.transform.forward;
         Vector3 V = currentArrow.transform.forward * 25f * withdrawDist;
         for (int i = 0; i < 20; i++)
         {
             p = p + V * .2f;
-            points[i] =currentArrow.transform.localToWorldMatrix* p;
+            points[i] = currentArrow.transform.localToWorldMatrix * p;
             V += Physics.gravity * .2f;
         }
         lr.SetPositions(points);

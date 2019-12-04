@@ -18,6 +18,7 @@ public class ArrowManager : MonoBehaviour
     public GameObject arrowPrefab;
     public bool bowGrabbed = false;
     public AudioClip arrowSound;
+    public float maxWithdrawDistance;
 
     private bool isAttached = false;
     private GameObject currentArrow;
@@ -72,41 +73,62 @@ public class ArrowManager : MonoBehaviour
         }
         lr.SetPositions(points);
     }
+    public void clearTrajectory()
+    {
+        lr.positionCount=0;
+    }
+
+
     private void PullString()
     {
-        if (isAttached)
+        if (isAttached )
         {
             switch (currentgrabbingHand)
             {
                 case grabbingHand.LeftHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedRightHand.transform.position).magnitude;
-                    stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
-                    if (Input.GetKeyUp(KeyCode.JoystickButton15))
+                    if (withdrawDist<maxWithdrawDistance)
+                    {
+                        stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
+
+                    }
+                    else
+                    {
+                        withdrawDist = maxWithdrawDistance;
+                    }
+                 
+                    if (Input.GetAxis("TriggerRight")<.1f && Input.GetAxis("GripRight")<0.1f)
                     {
                         Fire();
                     }
                     break;
+
+
                 case grabbingHand.RightHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedLeftHand.transform.position).magnitude;
-                    stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
-                    if (Input.GetKeyUp(KeyCode.JoystickButton14))
+                    if (withdrawDist<maxWithdrawDistance)
+                    {
+                        stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
+                    }
+                    else
+                    {
+                        withdrawDist = maxWithdrawDistance;
+                    }
+                    if (Input.GetAxis("TriggerLeft") < .1f && Input.GetAxis("GripLeft")<.1f)
                     {
                         Fire();
-
                     }
                     break;
                 default:
                     break;
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Fire();
-            }
+           
         }
     }
 
     public void Fire()
     {
+
         playArrowSound();
         currentArrow.transform.parent = null;
         currentArrow.GetComponent<Arrow>().Fired();
@@ -118,6 +140,7 @@ public class ArrowManager : MonoBehaviour
         stringAttachPoint.transform.position = stringStartPoint.transform.position;
         currentArrow = null;
         isAttached = false;
+        clearTrajectory();
     }
 
     private void AttachArrow()
@@ -127,16 +150,22 @@ public class ArrowManager : MonoBehaviour
             switch (currentgrabbingHand)
             {
                 case grabbingHand.LeftHand:
-                    currentArrow = Instantiate(arrowPrefab);
-                    currentArrow.transform.parent = trackedRightHand.transform;
-                    currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
-                    currentArrow.transform.localRotation = Quaternion.identity;
+                    {
+                        currentArrow = Instantiate(arrowPrefab);
+                        currentArrow.transform.parent = trackedRightHand.transform;
+                        currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
+                        currentArrow.transform.localRotation = Quaternion.identity;
+                    }
+                    
                     break;
                 case grabbingHand.RightHand:
-                    currentArrow = Instantiate(arrowPrefab);
-                    currentArrow.transform.parent = trackedLeftHand.transform;
-                    currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
-                    currentArrow.transform.localRotation = Quaternion.identity;
+                    {
+                        currentArrow = Instantiate(arrowPrefab);
+                        currentArrow.transform.parent = trackedLeftHand.transform;
+                        currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
+                        currentArrow.transform.localRotation = Quaternion.identity;
+                    }
+                 
                     break;
                 default:
                     break;
@@ -146,10 +175,13 @@ public class ArrowManager : MonoBehaviour
 
     public void AttachBowToArrow()
     {
-        currentArrow.transform.parent = stringAttachPoint.transform;
-        currentArrow.transform.position = arrowStartPoint.transform.position;
-        currentArrow.transform.rotation = arrowStartPoint.transform.rotation;
-        isAttached = true;
+        
+                
+            currentArrow.transform.parent = stringAttachPoint.transform;
+            currentArrow.transform.position = arrowStartPoint.transform.position;
+            currentArrow.transform.rotation = arrowStartPoint.transform.rotation;
+            isAttached = true;
+   
     }
 
     public void BowGrabbedStatus(bool grabbed)

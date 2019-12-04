@@ -18,7 +18,7 @@ public class Arrow : MonoBehaviour
             switch (ArrowManager.Instance.currentgrabbingHand)
             {
                 case grabbingHand.LeftHand:
-                    if (Input.GetKey(KeyCode.JoystickButton15))
+                     if (Input.GetAxis("GripRight") > .5f && Input.GetAxis("TriggerRight") > .5f)
                     {
                         AttachArrow();
                     }
@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour
 
                 case grabbingHand.RightHand:
 
-                    if (Input.GetKey(KeyCode.JoystickButton14))
+                    if (Input.GetAxis("GripLeft") > .5f || Input.GetAxis("TriggerLeft") > .5f)
                     {
                         AttachArrow();
                     }

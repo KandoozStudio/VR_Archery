@@ -26,7 +26,7 @@ public class Arrow : MonoBehaviour
 
                 case grabbingHand.RightHand:
 
-                    if (Input.GetAxis("GripLeft") > .5f || Input.GetAxis("TriggerLeft") > .5f)
+                    if (Input.GetAxis("GripLeft") > .5f && Input.GetAxis("TriggerLeft") > .5f)
                     {
                         AttachArrow();
                     }
@@ -65,10 +65,7 @@ public class Arrow : MonoBehaviour
 
     private void AttachArrow()
     {
-        //var device = SteamVR_Controller.Input((int)ArrowManager.Instance.trackedObj.index);
-        //	if (!isAttached && device.GetTouch (SteamVR_Controller.ButtonMask.Trigger)) {
 
-        //   if (Input.GetKeyDown(KeyCode.A))
         if (!isAttached)
 
         {

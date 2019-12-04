@@ -27,7 +27,11 @@ public class ArrowManager : MonoBehaviour
     private LineRenderer lr;
     private Vector3[] points;
     private Vector3 velocity, startingPosition;
-    public float speed=1;
+    public float speed = 1;
+
+
+    public SkinnedMeshRenderer LeftHand;
+    public SkinnedMeshRenderer RightHand;
     void Awake()
     {
         if (Instance == null)
@@ -64,7 +68,7 @@ public class ArrowManager : MonoBehaviour
     {
         lr.positionCount = 20;
         Vector3 p = currentArrow.transform.position; ;
-        Vector3 V = currentArrow.transform.forward* 25f *withdrawDist;
+        Vector3 V = currentArrow.transform.forward * 35f * withdrawDist;
         for (int i = 0; i < 20; i++)
         {
             p = p + V * .051f;
@@ -75,19 +79,19 @@ public class ArrowManager : MonoBehaviour
     }
     public void clearTrajectory()
     {
-        lr.positionCount=0;
+        lr.positionCount = 0;
     }
 
 
     private void PullString()
     {
-        if (isAttached )
+        if (isAttached)
         {
             switch (currentgrabbingHand)
             {
                 case grabbingHand.LeftHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedRightHand.transform.position).magnitude;
-                    if (withdrawDist<maxWithdrawDistance)
+                    if (withdrawDist < maxWithdrawDistance)
                     {
                         stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
 
@@ -96,8 +100,8 @@ public class ArrowManager : MonoBehaviour
                     {
                         withdrawDist = maxWithdrawDistance;
                     }
-                 
-                    if (Input.GetAxis("TriggerRight")<.1f && Input.GetAxis("GripRight")<0.1f)
+
+                    if (Input.GetAxis("TriggerRight") < .1f && Input.GetAxis("GripRight") < 0.1f)
                     {
                         Fire();
                     }
@@ -106,7 +110,7 @@ public class ArrowManager : MonoBehaviour
 
                 case grabbingHand.RightHand:
                     withdrawDist = (stringStartPoint.transform.position - trackedLeftHand.transform.position).magnitude;
-                    if (withdrawDist<maxWithdrawDistance)
+                    if (withdrawDist < maxWithdrawDistance)
                     {
                         stringAttachPoint.transform.localPosition = stringStartPoint.transform.localPosition + new Vector3(0f, -.75f * withdrawDist, 0f);
                     }
@@ -114,7 +118,7 @@ public class ArrowManager : MonoBehaviour
                     {
                         withdrawDist = maxWithdrawDistance;
                     }
-                    if (Input.GetAxis("TriggerLeft") < .1f && Input.GetAxis("GripLeft")<.1f)
+                    if (Input.GetAxis("TriggerLeft") < .1f && Input.GetAxis("GripLeft") < .1f)
                     {
                         Fire();
                     }
@@ -122,7 +126,7 @@ public class ArrowManager : MonoBehaviour
                 default:
                     break;
             }
-           
+
         }
     }
 
@@ -130,10 +134,11 @@ public class ArrowManager : MonoBehaviour
     {
 
         playArrowSound();
+        UnHideHand();
         currentArrow.transform.parent = null;
         currentArrow.GetComponent<Arrow>().Fired();
         Rigidbody r = currentArrow.GetComponent<Rigidbody>();
-        r.velocity = currentArrow.transform.forward * 25f * withdrawDist;
+        r.velocity = currentArrow.transform.forward * 35f * withdrawDist;
         r.isKinematic = false;
         r.useGravity = true;
         currentArrow.GetComponent<Collider>().isTrigger = false;
@@ -156,7 +161,7 @@ public class ArrowManager : MonoBehaviour
                         currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
                         currentArrow.transform.localRotation = Quaternion.identity;
                     }
-                    
+
                     break;
                 case grabbingHand.RightHand:
                     {
@@ -165,7 +170,7 @@ public class ArrowManager : MonoBehaviour
                         currentArrow.transform.localPosition = new Vector3(0f, 0f, .342f);
                         currentArrow.transform.localRotation = Quaternion.identity;
                     }
-                 
+
                     break;
                 default:
                     break;
@@ -175,13 +180,14 @@ public class ArrowManager : MonoBehaviour
 
     public void AttachBowToArrow()
     {
-        
-                
-            currentArrow.transform.parent = stringAttachPoint.transform;
-            currentArrow.transform.position = arrowStartPoint.transform.position;
-            currentArrow.transform.rotation = arrowStartPoint.transform.rotation;
-            isAttached = true;
-   
+
+        HideHand();
+
+        currentArrow.transform.parent = stringAttachPoint.transform;
+        currentArrow.transform.position = arrowStartPoint.transform.position;
+        currentArrow.transform.rotation = arrowStartPoint.transform.rotation;
+        isAttached = true;
+
     }
 
     public void BowGrabbedStatus(bool grabbed)
@@ -194,4 +200,37 @@ public class ArrowManager : MonoBehaviour
         _as.Stop();
         _as.Play();
     }
+
+
+    private void HideHand()
+    {
+        switch (currentgrabbingHand)
+        {
+            case grabbingHand.LeftHand:
+
+                RightHand.enabled = false;
+                break;
+            case grabbingHand.RightHand:
+                LeftHand.enabled = false;
+                break;
+            default:
+                break;
+        }
+    }
+    private void UnHideHand()
+    {
+        switch (currentgrabbingHand)
+        {
+            case grabbingHand.LeftHand:
+
+                RightHand.enabled = true;
+                break;
+            case grabbingHand.RightHand:
+                LeftHand.enabled = true;
+                break;
+            default:
+                break;
+        }
+    }
+
 }

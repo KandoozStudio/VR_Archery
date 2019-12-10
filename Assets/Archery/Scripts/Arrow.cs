@@ -49,12 +49,18 @@ public class Arrow : MonoBehaviour
         }
 
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+    //    Debug.Log("Collided with : " + collision.gameObject.name);
+    }
     void Update()
     {
         if (isFired && transform.GetComponent<Rigidbody>().velocity.magnitude > 5f)
         {
-            transform.LookAt(transform.position + transform.GetComponent<Rigidbody>().velocity);
+
+            this.transform.forward = this.gameObject.GetComponent<Rigidbody>().velocity;
+
+      //      transform.LookAt(transform.position + transform.GetComponent<Rigidbody>().velocity);
         }
     }
 

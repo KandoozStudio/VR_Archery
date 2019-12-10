@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2268001629604966525}
   - component: {fileID: 4612395869025297114}
   - component: {fileID: 3164421460524325397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArrowPrefab
   m_TagString: Arrow
   m_Icon: {fileID: 0}
@@ -119,12 +119,12 @@ Rigidbody:
   m_GameObject: {fileID: 1234214016976795026}
   serializedVersion: 2
   m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &6476236641748149442
 GameObject:
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4847750531098452043}
   - component: {fileID: 3880559606159316075}
   - component: {fileID: 2319591405152367522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6169394772209228532}
   - component: {fileID: 4244330222280481464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
